@@ -68,7 +68,7 @@ public class BarChartActivity extends ActionBarActivity {
         final BarChart[] chart = init();
         email = SharedPrefManager.getInstance(this).getUserEmail();
         final String devicename = getIntent().getExtras().getString("devicename");
-        /*Toast.makeText(getApplicationContext(),devicename,Toast.LENGTH_SHORT).show();lll
+        /*Toast.makeText(getApplicationContext(),devicename,Toast.LENGTH_SHORT).show();
         Toast.makeText(getApplicationContext(),email,Toast.LENGTH_SHORT).show();*/
 
 
