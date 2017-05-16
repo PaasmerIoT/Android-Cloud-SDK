@@ -7,6 +7,7 @@ SDK features include:
 - Reading information on devices
 - Controlling devices.
 - Publishing events from mobile devices, and subscribing to events published by devices & apps
+
 The complete SDK sources are available to browse on GitHub, and can be downloaded as a zip file.
 For usage info, check out the app module included in the git repository.
 Beta notice
