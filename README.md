@@ -14,7 +14,7 @@ While this SDK is ready for production use, it is still under development and is
 
 ## Installation
 > To get a Git project into your build:
-### Step 1. Add the JitPack repository to your build file
+### Step 1. 
 	Add it in your root build.gradle at the end of repositories:
 	```
 	allprojects {
@@ -24,7 +24,8 @@ While this SDK is ready for production use, it is still under development and is
 		}
 	}
 	```
-### Step 2. Add the dependency
+### Step 2.
+	Add the dependency:
 	```
 	dependencies {
 	        compile 'com.github.PaasmerIoT:Android-Cloud-SDK:1.0'
