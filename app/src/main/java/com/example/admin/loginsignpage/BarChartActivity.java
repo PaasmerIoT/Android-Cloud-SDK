@@ -232,67 +232,71 @@ public class BarChartActivity extends ActionBarActivity {
     }
 
     private void getChart(final BarChart[] chart, final String devicename) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constants.URL_DEVICE_DATA, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-             response = "{\"SensorData\":[{\"sensor\":\"feed1\",\"graph\":{\"05:59:53\":\"2\",\"05:59:39\":\"1\",\"05:59:23\":\"3\",\"05:59:09\":\"1\",\"11:17:32\":\"4\"}},{\"sensor\":\"feed2\",\"graph\":{\"05:59:53\":\"0\",\"05:59:39\":\"0\",\"05:59:23\":\"0\",\"05:59:09\":\"0\",\"11:17:32\":\"0\"}},{\"sensor\":\"feed3\",\"graph\":{\"05:59:53\":\"0\",\"05:59:39\":\"0\",\"05:59:23\":\"0\",\"05:59:09\":\"0\",\"11:17:32\":\"0\"}},{\"sensor\":\"analogfeed\",\"graph\":{\"05:59:53\":\"0\",\"05:59:39\":\"0\",\"05:59:23\":\"0\",\"05:59:09\":\"0\",\"11:17:32\":\"1\"}}],\"ControlData\":[{\"control\":\"controlfeed1\",\"status\":\"off\",\"device\":\"esp8266\"},{\"control\":\"controlfeed2\",\"status\":\"on\",\"device\":\"esp8266\"}]}";
 
-                try {
-                    if (response != null || !response.trim().isEmpty()) {
+        try{
 
-                        deviceDetails = new JSONObject(response);
-                        sensorData = deviceDetails.getJSONArray(SENSOR_DATA);
-                        controlData = deviceDetails.getJSONArray(CONTROL_DATA);
-                        if (sensorData != null && controlData != null) {
-                            BarData data = null;
-                            for (int i = 0; i < 4; i++) {
-                                try {
-                                    JSONObject jsonObject = sensorData.getJSONObject(i);
-                                    JSONObject jsonGraph = jsonObject.getJSONObject("graph");
-                                    List<String> xValues = getXAxisValues(jsonGraph);
+            async.deviceFeed(email, devicename, new GenericHandlers() {
+                @Override
+                public void onSuccess() {
 
-                                    data = new BarData(xValues, getDataSet(jsonGraph, xValues, jsonObject.get("sensor").toString()));
-                                    chart[i].setData(data);
+                }
 
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                @Override
+                public void onSuccess(JSONObject response) {
+                        String aResponse=response.toString();
+                  //  Toast.makeText(getApplicationContext(),aResponse,Toast.LENGTH_LONG).show();
+                    try {
+                        if (aResponse != null || !aResponse.trim().isEmpty()) {
+
+                            deviceDetails = new JSONObject(aResponse);
+                            sensorData = deviceDetails.getJSONArray(SENSOR_DATA);
+                            controlData = deviceDetails.getJSONArray(CONTROL_DATA);
+                            if (sensorData != null && controlData != null) {
+                                BarData data = null;
+                                for (int i = 0; i < 4; i++) {
+                                    try {
+                                        JSONObject jsonObject = sensorData.getJSONObject(i);
+                                        JSONObject jsonGraph = jsonObject.getJSONObject("graph");
+                                        List<String> xValues = getXAxisValues(jsonGraph);
+
+                                        data = new BarData(xValues, getDataSet(jsonGraph, xValues, jsonObject.get("sensor").toString()));
+                                        chart[i].setData(data);
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                              /*chart[0].animateXY(1000, 2000);
                              chart[1].animateXY(1000, 2000);
                              chart[2].animateXY(1000, 2000);
                              chart[3].animateXY(1000, 2000);*/
 
-                                chart[0].invalidate();
-                                chart[1].invalidate();
-                                chart[2].invalidate();
-                                chart[3].invalidate();
+                                    chart[0].invalidate();
+                                    chart[1].invalidate();
+                                    chart[2].invalidate();
+                                    chart[3].invalidate();
+                                }
                             }
                         }
-                    }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
+                @Override
+                public void onFailure(Exception exception) {
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Internal Error", Toast.LENGTH_LONG).show();
-            }
-        }) {
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                params.put("devicename", devicename);
-                return params;
-            }
+                }
 
+                @Override
+                public void onFailure(String msg) {
 
-        };
-        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+                }
+            });
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @NonNull

@@ -211,7 +211,12 @@ public class Async {
                 public void handleMessage(Message msg){
                     String aResponse=msg.getData().getString("message");
                     if ((null!=aResponse)){
-                        callback.onSuccess();
+                        try {
+                            JSONObject jsonObject=new JSONObject(aResponse);
+                            callback.onSuccess(jsonObject);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         Log.d("Login",aResponse);
                     }else {
                         callback.onFailure("error in feeds");
