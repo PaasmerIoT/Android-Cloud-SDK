@@ -12,7 +12,7 @@ The complete SDK sources are available to browse on GitHub, and can be downloade
 
 For usage info, check out the app module included in the git repository.
 
-######Beta notice
+###### Beta notice
 While this SDK is ready for production use, it is still under development and is currently in beta. The API is mostly stable, but may be subject to further changes prior to leaving beta. Once the SDK leaves beta, the API should never change outside of "major" version updates.
 
 ## Installation
