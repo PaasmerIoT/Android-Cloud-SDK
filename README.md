@@ -21,21 +21,25 @@ While this SDK is ready for production use, it is still under development and is
 	Add it in your root build.gradle at the end of repositories:
 	
 	```
+	
 	allprojects {
 		repositories {
 			...
 			maven { url 'https://jitpack.io' }
 		}
 	}
+	
 	```
 	
 ### Step 2.
 	Add the dependency:
 	
 	```
+	
 	dependencies {
 	        compile 'com.github.PaasmerIoT:Android-Cloud-SDK:1.0'
 	}
+	
 	```
 
 
