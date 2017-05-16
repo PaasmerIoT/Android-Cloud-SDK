@@ -32,15 +32,15 @@ repositories {
 	
 ### Step 2
 
-	Add the dependency:
+Add the dependency:
 	
-	```
+```
+
+dependencies {
+        compile 'com.github.PaasmerIoT:Android-Cloud-SDK:1.0'
+}
 	
-	dependencies {
-	        compile 'com.github.PaasmerIoT:Android-Cloud-SDK:1.0'
-	}
-	
-	```
+```
 
 
 
