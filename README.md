@@ -1,6 +1,6 @@
 # Paasmer Cloud SDK for Android
 
-The Paasmer Cloud SDK  for android is an easy-to-use wrapper for the Paasmer REST API, providing a clear, type-safe way for your Android app to interact with connected products, all via the Particle Cloud.
+The Paasmer Cloud SDK  for android is an easy-to-use wrapper for the Paasmer REST API, providing a clear, type-safe way for your Android app to interact with connected products, all via the Paasmer Cloud.
 SDK features include:
 - User sign up and sign in.
 - Getting a list of a devices.
