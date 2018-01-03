@@ -107,7 +107,8 @@ public class JsonParser {
                 DefaultHttpClient httpClient=new DefaultHttpClient();
                 HttpPost httpPost=new HttpPost(url);
                 httpPost.setEntity(new UrlEncodedFormEntity(params));
-
+                httpPost.setHeader("Accept","application/json");
+                httpPost.setHeader("Content-type","application/json");
                 HttpResponse httpResponse=httpClient.execute(httpPost);
                 HttpEntity httpEntity=httpResponse.getEntity();
                 is=httpEntity.getContent();

@@ -13,7 +13,7 @@
         android:layout_marginRight="24dp"
         android:ems="10"
         android:hint="Code"
-        android:inputType="number"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

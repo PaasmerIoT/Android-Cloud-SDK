@@ -3,6 +3,8 @@
     package="com.example.admin.loginsignpage">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -39,7 +41,10 @@
                 android:value=".ProfileActivity" />
         </activity>
         <activity android:name=".EmailVerification" />
-        <activity android:name=".ForgotPassword"></activity>
+        <activity android:name=".ForgotPassword" />
+        <activity android:name=".AddDevice" />
+        <activity android:name=".AddFeeds" />
+        <activity android:name=".FeedList"></activity>
     </application>
 
 </manifest>

@@ -68,48 +68,6 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:hint="Enter Confirm Password"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Phone_Number"
-            android:layout_marginTop="10dp"
-            android:textStyle="normal|bold|italic" />
-
-        <EditText
-            android:id="@+id/etPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Phone Number"
-            android:inputType="numberDecimal"/>
-
-        <Spinner
-            android:id="@+id/spCountry"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:prompt="@string/spin"
-            android:entries="@array/spinnerItems"
-            android:layout_height="40dp">
-        </Spinner>
-
-        <Spinner
-            android:id="@+id/spStates"
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:prompt="@string/spin"
-            android:layout_height="40dp">
-        </Spinner>
-
-        <Spinner
-            android:id="@+id/spSDK"
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:prompt="@string/Purpose_Of_SDK"
-            android:entries="@array/sdkItems"
-            android:layout_height="40dp">
-        </Spinner>
-        
-        
         <Button
             android:id="@+id/btRegister"
             android:text="@string/Button"
@@ -119,6 +77,7 @@
             android:gravity="center"
             android:layout_gravity="center"/>
 
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -127,7 +86,13 @@
             android:layout_marginTop="15dp"
             android:textColor="@color/colorSkyblue"
             android:id="@+id/alreadyRegister"/>
-
+        <TextView
+            android:id="@+id/txtResend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Resend" />
 
     </LinearLayout>
+
+
 </ScrollView>

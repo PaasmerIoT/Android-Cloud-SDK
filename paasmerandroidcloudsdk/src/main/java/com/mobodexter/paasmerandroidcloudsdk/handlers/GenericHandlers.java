@@ -1,5 +1,6 @@
 package com.mobodexter.paasmerandroidcloudsdk.handlers;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -10,7 +11,7 @@ public interface GenericHandlers {
 
     public void onSuccess();
     public void onSuccess(JSONObject response);
-
+    public void onSuccess(JSONArray response);
     public void onFailure(Exception exception);
     public void onFailure(String msg);
 }

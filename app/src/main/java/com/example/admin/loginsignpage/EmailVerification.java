@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.mobodexter.paasmerandroidcloudsdk.controller.Async;
 import com.mobodexter.paasmerandroidcloudsdk.handlers.GenericHandlers;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class EmailVerification extends AppCompatActivity {
@@ -33,7 +34,7 @@ public class EmailVerification extends AppCompatActivity {
                 String email=getIntent().getExtras().getString("email");
                 String code=etCode.getText().toString();
                // loginController.verifyEmail(email,code.trim(),genericHandlers);
-                async.verifyEmail(email, code.trim(), new GenericHandlers() {
+                async.verifyEmail(code.trim(), new GenericHandlers() {
                     @Override
                     public void onSuccess() {
 
@@ -43,6 +44,11 @@ public class EmailVerification extends AppCompatActivity {
                     public void onSuccess(JSONObject response) {
                         Intent intent=new Intent(EmailVerification.this,LoginActivity.class);
                         startActivity(intent);
+                    }
+
+                    @Override
+                    public void onSuccess(JSONArray response) {
+
                     }
 
                     @Override
@@ -59,29 +65,5 @@ public class EmailVerification extends AppCompatActivity {
             }
         });
     }
-    /*GenericHandlers genericHandlers=new GenericHandlers() {
-        @Override
-        public void onSuccess() {
-            Toast.makeText(getApplicationContext(),"verified",Toast.LENGTH_LONG).show();
-            Intent intent=new Intent(EmailVerification.this,LoginActivity.class);
-            startActivity(intent);
-        }
 
-        @Override
-        public void onSuccess(JSONObject response) {
-            Toast.makeText(getApplicationContext(),"verified",Toast.LENGTH_LONG).show();
-            Intent intent=new Intent(EmailVerification.this,LoginActivity.class);
-            startActivity(intent);
-        }
-
-        @Override
-        public void onFailure(Exception exception) {
-            Toast.makeText(getApplicationContext(),"not verified",Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        public void onFailure(String msg) {
-            Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
-        }
-    };*/
 }

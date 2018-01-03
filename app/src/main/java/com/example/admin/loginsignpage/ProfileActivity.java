@@ -7,6 +7,9 @@ import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,14 +41,17 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = ProfileActivity.class.getSimpleName();
     private String email="";
     private String DeviceNames="";
+    private List<DeviceListModel> deviceList=new ArrayList<>();
+    private RecyclerView recyclerView;
+    private DeviceListAdapter adapter;
 
     Async async;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        email = SharedPrefManager.getInstance(this).getUserEmail();
-
+        email = SharedPrefManager.getInstance(this).getAccessToken();
+        Log.d("Token:",email);
         async=new Async();
         // mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
 //        setSupportActionBar(mActionBarToolbar);
@@ -57,37 +63,67 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
-     //   loginController.getDevices(email,genericHandlers);
+
+        recyclerView= (RecyclerView) findViewById(R.id.recycler_view);
+        adapter=new DeviceListAdapter(deviceList);
+        RecyclerView.LayoutManager mLayoutManager=new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                DeviceListModel model=deviceList.get(position);
+                Toast.makeText(getApplicationContext(),model.getName()+","+model.getId(),Toast.LENGTH_LONG).show();
+
+                Intent intent=new Intent(ProfileActivity.this,FeedList.class);
+                intent.putExtra("id",model.getId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+        prepareDeviceData();
+        //   loginController.getDevices(email,genericHandlers);
+
+
+
+    }
+
+    private void prepareDeviceData() {
         async.getDevices(email, new GenericHandlers() {
             @Override
             public void onSuccess() {
-
+                Log.d("Login","login");
             }
 
             @Override
             public void onSuccess(JSONObject response) {
                 try {
-                    JSONArray jsonArray = response.getJSONArray("Devicenames");
+                    JSONArray jsonArray = response.getJSONArray("data");
 
                     List<String> listres = new ArrayList<>();
                     int size = jsonArray.length();
                     for (int i = 0; i < size; i++) {
-                        listres.add(jsonArray.get(i).toString());
+                        JSONObject jsonObject=jsonArray.getJSONObject(i);
+                        listres.add(jsonObject.getString("name"));
+                        DeviceListModel model=new DeviceListModel(jsonObject.getString("name"),jsonObject.getString("id"));
+                        deviceList.add(model);
+
                     }
-                    Log.d(TAG, String.valueOf(response));
-                    ListView devicelistView = (ListView) findViewById(R.id.device_list);
-                    ArrayAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),
-                            R.layout.device_layout_listview, listres);
-                    devicelistView.setAdapter(adapter);
-                    devicelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            String DeviceNames = (String) parent.getItemAtPosition(position);
-                            Intent intent = new Intent(getApplicationContext(), BarChartActivity.class);
-                            intent.putExtra("devicename", DeviceNames);
-                            startActivity(intent);
-                        }
-                    });
+                    adapter.notifyDataSetChanged();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onSuccess(JSONArray response) {
+                try {
+
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -103,101 +139,6 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-     /*   StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constants.URL_DEVICE_LIST,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            JSONArray jsonArray = jsonObject.getJSONArray("Devicenames");
-                            List<String> listres=new ArrayList<>();
-                            int size = jsonArray.length();
-                            for(int i = 0; i< size ; i++){
-                                listres.add(jsonArray.get(i).toString());
-                            }
-                            Log.d(TAG, String.valueOf(jsonObject));
-                            ListView devicelistView = (ListView) findViewById(R.id.device_list);
-                            ArrayAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),
-                                    R.layout.device_layout_listview,listres);
-                            devicelistView.setAdapter(adapter);
-                            devicelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    String DeviceNames= (String) parent.getItemAtPosition(position);
-                              Intent intent=  new Intent(getApplicationContext(),BarChartActivity.class);
-                                    intent.putExtra("devicename",DeviceNames);
-                                    startActivity(intent);
-
-
-                       /*           String name = (String) parent.getItemAtPosition(position);
-                                    DeviceNames=name;
-                                    Toast.makeText(getApplicationContext(),name,Toast.LENGTH_SHORT).show();
-                                    StringRequest stringRequest=new StringRequest(Request.Method.POST,
-                                            Constants.URL_DEVICE_DATA, new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-
-                                            try {
-                                                JSONObject jsonObject = new JSONObject(response);
-                                                JSONArray jsonArray = jsonObject.getJSONArray("SensorData");
-//
-
-
-
-
-
-
-
- //
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-
-
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-
-                                        }
-                                    }){
-
-                                        protected Map<String, String> getParams() throws AuthFailureError {
-                                            Map<String, String> params = new HashMap<>();
-                                            params.put("email", email);
-                                            params.put("Devicenames", DeviceNames);
-                                            return params;
-                                        }
-
-
-                                    };
-
-                                    RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);*/
-
-/*
-                                }
-                            });
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "device not found", Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                return params;
-            }
-        };
-
-        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);*/
 
     }
 
@@ -218,56 +159,13 @@ public class ProfileActivity extends AppCompatActivity {
                     break;
 
             case R.id.menuSetting:
+              Intent intent=new Intent(ProfileActivity.this,AddDevice.class);
+              startActivity(intent);
                 Toast.makeText(getApplicationContext(),"Setting Clicked",Toast.LENGTH_SHORT).show();
                 break;
         }
         return true;
     }
 
-    GenericHandlers genericHandlers=new GenericHandlers() {
-        @Override
-        public void onSuccess() {
 
-        }
-
-        @Override
-        public void onSuccess(JSONObject response) {
-          //  Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-           try {
-               JSONArray jsonArray = response.getJSONArray("Devicenames");
-
-               List<String> listres = new ArrayList<>();
-               int size = jsonArray.length();
-               for (int i = 0; i < size; i++) {
-                   listres.add(jsonArray.get(i).toString());
-               }
-               Log.d(TAG, String.valueOf(response));
-               ListView devicelistView = (ListView) findViewById(R.id.device_list);
-               ArrayAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),
-                       R.layout.device_layout_listview, listres);
-               devicelistView.setAdapter(adapter);
-               devicelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                   @Override
-                   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                       String DeviceNames = (String) parent.getItemAtPosition(position);
-                       Intent intent = new Intent(getApplicationContext(), BarChartActivity.class);
-                       intent.putExtra("devicename", DeviceNames);
-                       startActivity(intent);
-                   }
-               });
-           }catch (Exception e){
-               e.printStackTrace();
-           }
-        }
-
-        @Override
-        public void onFailure(Exception exception) {
-
-        }
-
-        @Override
-        public void onFailure(String msg) {
-
-        }
-    };
 }

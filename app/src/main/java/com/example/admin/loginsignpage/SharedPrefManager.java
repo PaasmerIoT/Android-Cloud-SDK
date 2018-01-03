@@ -18,6 +18,7 @@ public class SharedPrefManager {
     private static final String SHARED_PREF_NAME="mysharedpref12";
     private static final String KEY_USER_EMAIL="useremail";
     private static final String KEY_USER_DEVICE_NAME="devicename";
+    private static final String ACCESS_TOKEN="token";
 
   //  private static final String KEY_PASSWORD="pass";
 
@@ -46,6 +47,19 @@ public class SharedPrefManager {
 
 
    }
+
+   public void setAccessToken(String token){
+        SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString(ACCESS_TOKEN,token);
+        editor.apply();
+   }
+
+   public String getAccessToken(){
+       SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+       return sharedPreferences.getString(ACCESS_TOKEN,null);
+   }
+
 
     public boolean isLoggedIn()
     {

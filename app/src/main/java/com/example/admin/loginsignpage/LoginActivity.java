@@ -21,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 import com.mobodexter.paasmerandroidcloudsdk.controller.Async;
 import com.mobodexter.paasmerandroidcloudsdk.handlers.GenericHandlers;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -102,14 +103,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 try {
                     JSONObject jsonObject=new JSONObject(response.toString());
                     // Toast.makeText(getApplicationContext(),jsonObject.getInt("success")+"",Toast.LENGTH_SHORT).show();
-                    int success=jsonObject.getInt("success");
-                    if(success==1)
+                    boolean success=jsonObject.getBoolean("success");
+                    if(success)
                     {
                         SharedPrefManager.getInstance(getApplicationContext())
                                 .userLogIn(
                                         jsonObject.getString("message")
 
                                 );
+                        SharedPrefManager.getInstance(getApplicationContext()).setAccessToken(jsonObject.getString("token"));
                         startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
                         finish();
 
@@ -119,6 +121,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onSuccess(JSONArray response) {
+
             }
 
             @Override

@@ -39,6 +39,7 @@ import java.util.Map;
 
 public class BarChartActivity extends ActionBarActivity {
     private String email = "";
+    private String id,deviceId;
     private static final String SENSOR_DATA = "SensorData";
     private static final String CONTROL_DATA = "ControlData";
     private JSONArray sensorData = null;
@@ -63,179 +64,26 @@ public class BarChartActivity extends ActionBarActivity {
         }
 
         async=new Async();
-        btControlfeed1 = (ToggleButton) findViewById(R.id.btcontrolfeed1);
-        btControlfeed2 = (ToggleButton) findViewById(R.id.btcontrolfeed2);
+
         final BarChart[] chart = init();
-        email = SharedPrefManager.getInstance(this).getUserEmail();
-        final String devicename = getIntent().getExtras().getString("devicename");
+        email = SharedPrefManager.getInstance(this).getAccessToken();
+       id=getIntent().getExtras().getString("id");
+       deviceId=getIntent().getExtras().getString("deviceId");
         /*Toast.makeText(getApplicationContext(),devicename,Toast.LENGTH_SHORT).show();
         Toast.makeText(getApplicationContext(),email,Toast.LENGTH_SHORT).show();*/
 
 
-        getChart(chart, devicename);
-        getToggle(devicename);
+        getChart(chart, deviceId,id);
 
     }
 
-    private void getToggle(final String devicename) {
-        btControlfeed1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                try {
-                   // loginController.deviceControl(email,devicename,controlData.getJSONObject(0).get("control").toString(),controlData.getJSONObject(0).get("status").toString(),genericHandlers);
-                    async.deviceControl(email, devicename, controlData.getJSONObject(0).get("control").toString(), controlData.getJSONObject(0).get("status").toString(), new GenericHandlers() {
-                        @Override
-                        public void onSuccess() {
-
-                        }
-
-                        @Override
-                        public void onSuccess(JSONObject response) {
-                            try {
-                                Toast.makeText(getApplicationContext(), response.get("traceId").toString(), Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Exception exception) {
-
-                        }
-
-                        @Override
-                        public void onFailure(String msg) {
-
-                        }
-                    });
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                /* if (isChecked) {
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                            Constants.URL_DEVICE_CONTROL_DATA, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            if (response != null && !response.trim().isEmpty()) {
-                                try {
-                                    JSONObject json = new JSONObject(response);
-                                    Toast.makeText(getApplicationContext(), json.get("traceId").toString(), Toast.LENGTH_LONG).show();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(), "Internal Error", Toast.LENGTH_LONG).show();
-                        }
-                    }) {
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            Map<String, String> params = new HashMap<>();
-                            params.put("email", email);
-                            params.put("devicename", devicename);
-                            try {
-                                params.put("control", controlData.getJSONObject(0).get("control").toString());
-                                params.put("status", controlData.getJSONObject(0).get("status").toString());
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            return params;
-                        }
-
-                    };
-                    RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-
-                }*/
-            }
-
-        });
 
 
-        btControlfeed2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                try {
-                   // loginController.deviceControl(email,devicename,controlData.getJSONObject(1).get("control").toString(),controlData.getJSONObject(1).get("status").toString(),genericHandlers);
-                    async.deviceControl(email, devicename, controlData.getJSONObject(1).get("control").toString(), controlData.getJSONObject(1).get("status").toString(), new GenericHandlers() {
-                        @Override
-                        public void onSuccess() {
-
-                        }
-
-                        @Override
-                        public void onSuccess(JSONObject response) {
-                            try {
-                                Toast.makeText(getApplicationContext(), response.get("traceId").toString(), Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Exception exception) {
-
-                        }
-
-                        @Override
-                        public void onFailure(String msg) {
-
-                        }
-                    });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-               /* if (isChecked) {
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                            Constants.URL_DEVICE_CONTROL_DATA, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            if (response != null && !response.trim().isEmpty()) {
-                                try {
-                                    JSONObject json = new JSONObject(response);
-                                    Toast.makeText(getApplicationContext(), json.get("traceId").toString(), Toast.LENGTH_LONG).show();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(), "Internal Error", Toast.LENGTH_LONG).show();
-                        }
-                    }) {
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            Map<String, String> params = new HashMap<>();
-                            params.put("email", email);
-                            params.put("devicename", devicename);
-                            try {
-                                params.put("control", controlData.getJSONObject(1).get("control").toString());
-                                params.put("status", controlData.getJSONObject(1).get("status").toString());
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            return params;
-                        }
-
-                    };
-                    RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-
-                }*/
-            }
-        });
-    }
-
-    private void getChart(final BarChart[] chart, final String devicename) {
+    private void getChart(final BarChart[] chart, final String devicename,final String id) {
 
         try{
 
-            async.deviceFeed(email, devicename, new GenericHandlers() {
+            async.getFeedData(email, devicename,id, new GenericHandlers() {
                 @Override
                 public void onSuccess() {
 
@@ -249,19 +97,18 @@ public class BarChartActivity extends ActionBarActivity {
                         if (aResponse != null || !aResponse.trim().isEmpty()) {
 
                             deviceDetails = new JSONObject(aResponse);
-                            sensorData = deviceDetails.getJSONArray(SENSOR_DATA);
-                            controlData = deviceDetails.getJSONArray(CONTROL_DATA);
-                            if (sensorData != null && controlData != null) {
+                            sensorData = response.getJSONArray("data");
+                            ArrayList<BarEntry> yVals1=new ArrayList<BarEntry>();
+
+                            //controlData = deviceDetails.getJSONArray(CONTROL_DATA);
+                            if (sensorData != null) {
                                 BarData data = null;
-                                for (int i = 0; i < 4; i++) {
+                                for (int i = 0; i < sensorData.length(); i++) {
                                     try {
                                         JSONObject jsonObject = sensorData.getJSONObject(i);
-                                        JSONObject jsonGraph = jsonObject.getJSONObject("graph");
-                                        List<String> xValues = getXAxisValues(jsonGraph);
-
-                                        data = new BarData(xValues, getDataSet(jsonGraph, xValues, jsonObject.get("sensor").toString()));
-                                        chart[i].setData(data);
-
+                                        List<String> xValues = getXAxisValues(jsonObject);
+                                        data = new BarData(xValues, getDataSet(jsonObject, xValues, ""));
+                                        chart[0].setData(data);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -271,16 +118,23 @@ public class BarChartActivity extends ActionBarActivity {
                              chart[3].animateXY(1000, 2000);*/
 
                                     chart[0].invalidate();
-                                    chart[1].invalidate();
-                                    chart[2].invalidate();
-                                    chart[3].invalidate();
+                                    //chart[1].invalidate();
+                                    //chart[2].invalidate();
+                                    //chart[3].invalidate();
                                 }
+
+
                             }
                         }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                }
+
+                @Override
+                public void onSuccess(JSONArray response) {
+
                 }
 
                 @Override
@@ -303,9 +157,7 @@ public class BarChartActivity extends ActionBarActivity {
     private BarChart[] init() {
         final BarChart[] chart = new BarChart[4];
         chart[0] = (BarChart) findViewById(R.id.chart);
-        chart[1] = (BarChart) findViewById(R.id.chart1);
-        chart[2] = (BarChart) findViewById(R.id.chart2);
-        chart[3] = (BarChart) findViewById(R.id.chart3);
+
         return chart;
     }
 
@@ -313,7 +165,7 @@ public class BarChartActivity extends ActionBarActivity {
         List<BarEntry> barEntries = new ArrayList<>();
         for (int i = 0; i < xValues.size(); i++) {
             try {
-                float val = Float.parseFloat(jsonGraph.get(xValues.get(i)).toString());
+                float val = Float.parseFloat(jsonGraph.getString("value"));
                 BarEntry barEntry = new BarEntry(val, i);
                 barEntries.add(barEntry);
             } catch (JSONException e) {
@@ -334,13 +186,15 @@ public class BarChartActivity extends ActionBarActivity {
         return dataSets;
     }
 
-    private List<String> getXAxisValues(JSONObject jsonObject) {
+    private List<String> getXAxisValues(JSONObject jsonObject) throws JSONException {
         Iterator keysToCopyIterator = jsonObject.keys();
         List<String> keysList = new ArrayList<String>();
-        while (keysToCopyIterator.hasNext()) {
-            String key = (String) keysToCopyIterator.next();
-            keysList.add(key);
-        }
+        String time=jsonObject.getString("time");
+       keysList.add(time);
+        // while (keysToCopyIterator.hasNext()) {
+         //   String key = (String) keysToCopyIterator.next();
+          //  keysList.add(key);
+        //}
         return keysList;
     }
 
@@ -380,6 +234,11 @@ public class BarChartActivity extends ActionBarActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+
+        @Override
+        public void onSuccess(JSONArray response) {
+
         }
 
         @Override

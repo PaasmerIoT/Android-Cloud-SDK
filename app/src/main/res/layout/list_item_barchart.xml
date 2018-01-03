@@ -13,30 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/chart1"
-        android:layout_width="match_parent"
-        android:layout_height="200dp" />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/chart2"
-        android:layout_width="match_parent"
-        android:layout_height="200dp" />
-
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/chart3"
-        android:layout_width="match_parent"
-        android:layout_height="200dp" />
-
-   <ToggleButton
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id="@+id/btcontrolfeed1"/>
-
-    <ToggleButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btcontrolfeed2"/>
 </LinearLayout>
 
 

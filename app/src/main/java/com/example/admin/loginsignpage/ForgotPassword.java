@@ -10,6 +10,7 @@ import android.widget.EditText;
 import com.mobodexter.paasmerandroidcloudsdk.controller.Async;
 import com.mobodexter.paasmerandroidcloudsdk.handlers.GenericHandlers;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ForgotPassword extends AppCompatActivity {
@@ -33,13 +34,14 @@ public class ForgotPassword extends AppCompatActivity {
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String token="";
                 String email=etEmail.getText().toString();
                 etCode.setVisibility(View.VISIBLE);
                 etPassword.setVisibility(View.VISIBLE);
                 btnReset.setVisibility(View.VISIBLE);
                 btnRequest.setVisibility(View.GONE);
               //  loginController.onForgotPassword(email,genericHandlers);
-                async.onForgotPassword(email, new GenericHandlers() {
+                async.onForgotPassword(token,email, new GenericHandlers() {
                     @Override
                     public void onSuccess() {
 
@@ -47,6 +49,11 @@ public class ForgotPassword extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(JSONObject response) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(JSONArray response) {
 
                     }
 
@@ -78,6 +85,11 @@ public class ForgotPassword extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(JSONObject response) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(JSONArray response) {
 
                     }
 
