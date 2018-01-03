@@ -125,8 +125,8 @@
       <file leaf-file-name="ApiURLs.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/paasmerandroidcloudsdk/src/main/java/com/mobodexter/paasmerandroidcloudsdk/controller/ApiURLs.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="40" lean-forward="false" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+            <state relative-caret-position="238">
+              <caret line="14" column="73" lean-forward="false" selection-start-line="14" selection-start-column="73" selection-end-line="14" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -2901,10 +2901,10 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/admin/loginsignpage/MainActivity.java" />
-        <option value="$PROJECT_DIR$/paasmerandroidcloudsdk/src/main/java/com/mobodexter/paasmerandroidcloudsdk/controller/ApiURLs.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_email_verification.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/admin/loginsignpage/EmailVerification.java" />
         <option value="$PROJECT_DIR$/paasmerandroidcloudsdk/src/main/java/com/mobodexter/paasmerandroidcloudsdk/controller/Async.java" />
+        <option value="$PROJECT_DIR$/paasmerandroidcloudsdk/src/main/java/com/mobodexter/paasmerandroidcloudsdk/controller/ApiURLs.java" />
       </list>
     </option>
   </component>
@@ -3101,7 +3101,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1514957282570" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1514971765320" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -3147,7 +3147,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1514957282570" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1514971765321" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -3307,7 +3307,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1514957282573" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1514971765324" />
       </method>
     </configuration>
     <list size="1">
@@ -3355,7 +3355,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -3864,8 +3864,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/paasmerandroidcloudsdk/src/main/java/com/mobodexter/paasmerandroidcloudsdk/controller/ApiURLs.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="40" lean-forward="false" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+        <state relative-caret-position="238">
+          <caret line="14" column="73" lean-forward="false" selection-start-line="14" selection-start-column="73" selection-end-line="14" selection-end-column="73" />
           <folding />
         </state>
       </provider>
