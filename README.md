@@ -35,7 +35,7 @@ Add the dependency:
 ```
 
 dependencies {
-        compile 'com.github.PaasmerIoT:Android-Cloud-SDK:2.0'
+        compile 'com.github.PaasmerIoT:Android-Cloud-SDK:v2.0'
 }
 	
 ```
